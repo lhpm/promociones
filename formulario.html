@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+      <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <script language="javascript" src="js/jquery-1.3.min.js"></script>
+  <style>
+    .caja {
+      font-family: sans-serif;
+      font-size: 1.8em;
+      font-weight: 400;
+      color: #ffffff;
+      background:#A50E1B;
+      max-width: 100%;
+      height: 80px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      text-align:center;
+    }
+    .texto{
+      width: 100%;
+    }
+    #result {
+      font-family: sans-serif;
+      font-size: 1.5em;
+      font-weight: 400;
+      color: #ffffff;
+      width: 100%;
+      height: 100px;
+      padding-top: 0px;
+      padding-right: 20px;
+      padding-bottom: 20px;
+      padding-left: 110px;
+}
+.button {
+    background-color: #A50E1B;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    max-width: 100%;
+    width: 100%;
+    border: 2px solid #FFFFFF;
+}
+.button:hover{
+    color: #FFFFFF;
+    background-color: #EE1527;
+  }
+  @media screen and (max-width: 600px) {
+  .form-group row, input[type=submit] {
+    width: 50%;
+    margin-top: 0;
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #F92472; /* COLOR BACKGROUND ORIGINAL #2196F3*/
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #F92472;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+  </style>
+  <script type="text/javascript">
+$(document).ready(function() {
+    $().ajaxStart(function() {
+        $('#loading').show();
+        $('#result').hide();
+    }).ajaxStop(function() {
+        $('#formulario-contacto, #aviso, #caja').hide();
+        $('#loading').hide();
+        $('#result').show();
+    });
+    $('#form, #fat, #formulario-contacto').submit(function() {
+var email = $('input[name=email]').val();
+//organize the data properly
+      var form_data = 
+        'email='+email;
+        $.ajax({
+            data:  form_data,
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            beforeSend: function () {
+            $("#result").html("Procesando, espere por favor...");
+            },
+            success: function(data) {
+                $('#result').html(data);
+
+            }
+        })
+        
+        return false;
+    }); 
+})  
+</script>
+ </head>
+<body>
+
+<div class="caja" id="caja" name="caja"><span class="texto">FORMULARIO DE REGISTRO</span></div>
+<p class="texto" id="aviso" name="aviso">
+Los datos no serán publicados en ningún otro sitio.
+</p>
+<form action="formulario.php" method="post" role="form" id="formulario-contacto" name="formulario-contacto">
+<div class="form-group row">
+      <div class="col-6">
+
+    <label for="nroorden">Nro Orden</label>
+    <input type="hidden" name="nroorden" class="form-control" id="nroorden" aria-describedby="nombreHelp" placeholder="Nro Orden" readonly>
+    <span id="error" class="help-block"></span>
+
+    <label for="nombres">Nombres</label>
+    <input type="text" name="nombres" class="form-control" id="apellido" aria-describedby="apellidoHelp" placeholder="Escribí tus Nombres" required="true">
+
+    <label for="apellidos">Apellidos</label>
+    <input type="text" name="apellidos" class="form-control" id="apellidos" placeholder="Escribí tus Apellidos" required="true">
+
+    <label for="dni">DNI</label>
+    <input type="text" name="dni" class="form-control" id="dni" placeholder="Escribí tu Documento" required="true">
+
+     <label for="residencia">Lugar de Residencia</label>
+      <select id="residencia" class="form-control" name="residencia" required="true">
+        <option selected>Elegir...</option>
+        <option value="villaranallo">Villa Ranallo</option>
+        <option value="ramallo">Ramallo</option>
+        <option value="elparaiso">El Paraiso</option>
+        <option value="perezmillan">Perez Millán</option>
+        <option value="sannicolas">San Nicolás</option>
+        <option value="vgral">V Gral Sadio</option>
+        <option value="zonarural">Zona Rural</option>
+        <option value="otro">Otro</option>
+      </select>
+
+      </div>
+      <div class="col-6">
+
+      <!-- Trabajas -->
+      <label for="trabajas">Trabajas</label>
+        <br />
+        <span style="padding-right:10px">NO</span>
+      <label class="switch">
+        <input type="checkbox" id="trabajas" name="trabajas">
+        <span class="slider round"></span>
+        <span style="padding-left:70px">SI</span>
+      </label>
+
+    <br />
+      <!-- Trabajas -->
+      <label for="estudias">Estudias</label>
+        <br />
+        <span style="padding-right:10px">NO</span>
+      <label class="switch">
+        <input type="checkbox" id="estudias" name="estudias">
+        <span class="slider round"></span>
+        <span style="padding-left:70px">SI</span>
+      </label>
+      <br />
+
+    <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+     <input type="date" name="fecha_nacimiento" class="form-control" id="fecha_nacimiento" required="true">
+
+    <label for="correo">Correo electrónico</label>
+     <input type="email" id="correo" name="correo" class="form-control" placeholder="Correo" required="true">
+
+    <label for="whatsapp">Whatsapp</label>
+     <input type="phone" name="whatsapp" class="form-control" id="whatsapp" placeholder="Nro Whatsapp" required="true">
+        
+      </div>
+    </div>
+
+  <button type="submit" class="button">Enviar</button>
+</form>
+<div id="result"></div>
+
+     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

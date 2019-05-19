@@ -1,0 +1,17 @@
+1 index.php se Visualizan los artículos.
+
+2. Click en Adquirir.
+
+3. Se leee archivo ver_encuesta.php
+
+4. Click se elige la Respuesta.
+
+5. Vamos a la segunda pregunta ubicadda en /2e/index.php
+
+6 Seleciionamos la Respuesta.
+
+7. Llegamos a Finalizar /finalizar/index.php. Después click en Avanzar
+
+8. Llegamos a /bonificacion/index.php . Click en finalizar para 
+
+ir al sitio www.miremallo.com
